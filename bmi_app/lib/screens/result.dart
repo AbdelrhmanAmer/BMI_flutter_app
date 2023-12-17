@@ -43,7 +43,7 @@ class ResultScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                'Result: ${result.toStringAsPrecision(4)}',
+                'Result: ${result.toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Theme.of(context).colorScheme.secondaryContainer,
                     fontSize: 30,

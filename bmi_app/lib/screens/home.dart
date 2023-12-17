@@ -14,14 +14,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isMale = true;
+  bool _isMale = true;
+  double myWeight = 40;
+  double myHeight = 150;
+  double myAge = 40;
+  double bmi = 0;
   @override
   Widget build(BuildContext context) {
-    double myWeight = 40;
-    double myHeight = 150;
-    double myAge = 40;
-    double bmi = 0;
-
     calcBmi(){
       setState(() {
         bmi = myWeight/pow(myHeight/100, 2);
@@ -41,79 +40,74 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child:Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                      onTap: () =>setState(() => isMale = isMale ? isMale : !isMale),
-                      child: GenderBox(gender: "Male", icon: Icons.male, isMale: isMale, )
-                  ),
-                  const SizedBox(width: 10,),
-                  InkWell(
-                      onTap: () =>setState(() => isMale = isMale ? !isMale : isMale),
-                      child: GenderBox(gender: "Female", icon: Icons.female, isMale: !isMale,)),
-                ],
-              ),
-              HeightSlider(onHeight: (height)=>myHeight = height),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Counter(
-                    title: "Weight",
-                    onChange: (value) =>myWeight = value
-                  ),
-                  const SizedBox(width: 10,),
-                  Counter(
-                    title: "Age",
-                    onChange: (value) =>  myAge = value
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Container(
-                width: 310,
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(5),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    GenderBox( gender: "Male", isMale: _isMale, onToggle: () => setState(() => _isMale = true), ),
+                    const SizedBox(width: 10,),
+                    GenderBox( gender: "Female", isMale: _isMale, onToggle: ()=> setState(() => _isMale = false), ),
+                  ],
                 ),
-                child: TextButton(
-                  onPressed: (){
-                    calcBmi();
-                    print('height: $myHeight    myWeight: $myWeight ');
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (ctx){
-                        return ResultScreen(
-                          result: bmi,
-                          gender: isMale?"Male":"Female",
-                          age: myAge,
-                          status:
-                                bmi < 18.5               ? "Underweight"
-                              : bmi > 18.5 && bmi < 24.9 ? "Normal"
-                              : bmi > 24.9 && bmi < 29.9 ? "Overweight"
-                              : "Obese",
-                        );
-                      })
-                    );
-                  },
-                  child: Text(
-                    'Calculate',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30
-                    ),
+              ),
+            ),
+            Expanded(
+                child: HeightSlider(onHeight: (height)=>myHeight = height)
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    Counter( title: "Weight", onChange: (value) =>myWeight = value ),
+                    const SizedBox(width: 10,),
+                    Counter( title: "Age", onChange: (value) =>  myAge = value ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 1),
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height/16,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: TextButton(
+                onPressed: (){
+                  calcBmi();
+                  print('height: $myHeight    myWeight: $myWeight ');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx){
+                      return ResultScreen(
+                        result: bmi,
+                        gender: _isMale? "Male" : "Female",
+                        age: myAge,
+                        status:
+                              bmi < 18.5               ? "Underweight"
+                            : bmi > 18.5 && bmi < 24.9 ? "Normal"
+                            : bmi > 24.9 && bmi < 29.9 ? "Overweight"
+                            : "Obese",
+                      );
+                    })
+                  );
+                },
+                child: Text(
+                  'Calculate',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30
                   ),
                 ),
-              )
-        
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

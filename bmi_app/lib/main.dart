@@ -11,10 +11,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Color appColorTheme = Colors.brown;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal,),
+        colorScheme: ColorScheme.fromSeed(seedColor: appColorTheme,),
         brightness: Brightness.dark
       ),
       home: const HomeScreen(),
