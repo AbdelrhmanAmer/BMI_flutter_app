@@ -19,7 +19,7 @@ class _HeightSliderState extends State<HeightSlider> {
   Widget build(BuildContext context) {
     return Container(
               margin: const EdgeInsets.all(10),
-              width: 300,
+              width: 310,
               height: 190,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
