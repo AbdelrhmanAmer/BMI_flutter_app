@@ -21,8 +21,8 @@ class ResultScreen extends StatelessWidget {
         title: Text(
           'Result',
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-              color: Theme.of(context).colorScheme.secondaryContainer,
-              fontWeight: FontWeight.bold
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
@@ -30,45 +30,69 @@ class ResultScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).colorScheme.onPrimaryContainer,
+                Theme.of(context).colorScheme.onBackground.withOpacity(.5),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 90),
+          padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                'Gender: $gender',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-              Text(
-                'Result: ${result.toStringAsFixed(2)}',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-              Text(
-                'Healthiness: $status',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-              Text(
-                'Age: ${age.round()}',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
+              ResultInfoTile(label: 'Gender', value: gender),
+              ResultInfoTile(label: 'Healthiness', value: status),
+              ResultInfoTile(label: 'Age', value: '${age.round()}'),
+              ResultInfoTile(label: 'Result', value: '${result.toStringAsFixed(2)}'),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ResultInfoTile extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const ResultInfoTile({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: (){},
+      title: Text(
+        label,
+        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          fontWeight: FontWeight.bold,
+          fontSize: 30
+        ),
+      ),
+      subtitle: StyledText(value, fontSize: 18),
+    );
+  }
+}
+
+class StyledText extends StatelessWidget {
+  final String text;
+  final double fontSize;
+
+  const StyledText(this.text, {required this.fontSize});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+        color: Theme.of(context).colorScheme.tertiaryContainer,
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

@@ -48,6 +48,7 @@ class _CounterState extends State<Counter> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FloatingActionButton(
+                  heroTag: '${widget.title}1',
                   foregroundColor: Theme.of(context).colorScheme.secondaryContainer,
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   onPressed: (){
@@ -59,6 +60,7 @@ class _CounterState extends State<Counter> {
                 ),
                 const SizedBox(width: 10,),
                 FloatingActionButton(
+                  heroTag: '${widget.title}2',
                   foregroundColor: Theme.of(context).colorScheme.secondaryContainer,
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   onPressed: (){
