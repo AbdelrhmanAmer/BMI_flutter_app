@@ -45,9 +45,9 @@ class ResultScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ResultInfoTile(label: 'Gender', value: gender),
-              ResultInfoTile(label: 'Healthiness', value: status),
               ResultInfoTile(label: 'Age', value: '${age.round()}'),
-              ResultInfoTile(label: 'Result', value: '${result.toStringAsFixed(2)}'),
+              ResultInfoTile(label: 'Result', value: result.toStringAsFixed(2)),
+              ResultInfoTile(label: 'Healthiness', value: status),
             ],
           ),
         ),

@@ -46,13 +46,13 @@ class _HeightSliderState extends State<HeightSlider> {
                           fontWeight: FontWeight.bold
                         )
                       ),
-                      const SizedBox(width: 4,),
-                      const Text(
+                      Text(
                         'CM',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        )
                       ),
 
                     ],
